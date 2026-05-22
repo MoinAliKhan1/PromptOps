@@ -3,21 +3,28 @@ pipeline {
 
     stages {
 
-        stage('Clone') {
+        stage('Checkout') {
             steps {
-                git 'https://github.com/MoinAliKhan1/PromptOps.git'
+                git branch: 'main', url: 'https://github.com/MoinAliKhan1/PromptOps.git'
             }
         }
 
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                sh 'echo "Building HTML project"'
+                sh 'docker build -t promptops-image .'
             }
         }
 
-        stage('Deploy') {
+        stage('Stop Old Container') {
             steps {
-                sh 'cp index.html /usr/share/nginx/html/'
+                sh 'docker stop promptops || true'
+                sh 'docker rm promptops || true'
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                sh 'docker run -d -p 8081:80 --name promptops promptops-image'
             }
         }
     }
