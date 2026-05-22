@@ -21,12 +21,12 @@ pipeline {
             }
         }
 
-#        stage('Push Docker Image') {
-#            steps {
-#                sh 'docker tag promptops-image moinalikhan/promptops-image:v1'
-#                sh 'docker push moinalikhan/promptops-image:v1'
-#            }
-#        }
+       /* stage('Push Docker Image') {
+            steps {
+                sh 'docker tag promptops-image moinalikhan/promptops-image:v1'
+                sh 'docker push moinalikhan/promptops-image:v1'
+            }
+        }*/
         stage('Docker Login & Push') {
             steps {
 
