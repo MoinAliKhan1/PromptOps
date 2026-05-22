@@ -20,7 +20,12 @@ pipeline {
                 sh 'docker build -t promptops-image .'
             }
         }
-
+        stage('Push Docker Image') {
+            steps {
+                sh 'docker tag promptops-image moinalikhan/promptops-image:v1'
+                sh 'docker push moinalikhan/promptops-image:v1'
+            }
+        }
         stage('Stop Old Container') {
             steps {
                 sh 'docker stop promptops || true'
