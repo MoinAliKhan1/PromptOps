@@ -2,7 +2,13 @@ pipeline {
     agent any
 
     stages {
-
+        stage('Debug') {
+            steps {
+                sh 'echo "Jenkinsfile is executing"'
+                sh 'whoami'
+                sh 'pwd'
+            }
+        }
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/MoinAliKhan1/PromptOps.git'
